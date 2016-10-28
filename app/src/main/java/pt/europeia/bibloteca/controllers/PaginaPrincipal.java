@@ -17,5 +17,7 @@ public class PaginaPrincipal extends AppCompatActivity {
         setContentView(R.layout.activity_pagina_principal);
         livros_recycler_view= (RecyclerView) findViewById(R.id.listalivrosnovos);
 
+        
+
     }
 }
