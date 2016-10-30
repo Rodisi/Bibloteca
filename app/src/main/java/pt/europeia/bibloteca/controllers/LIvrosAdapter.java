@@ -93,6 +93,11 @@ public class LIvrosAdapter extends RecyclerView.Adapter<LIvrosAdapter.MyViewHold
         Bitmap bitmap = BitmapFactory.decodeStream(istr);
         return bitmap;
     }
+    public void updateList(List<Livro> data) {
+        listaLivros = data;
+        notifyDataSetChanged();
+    }
+
 }
 
 

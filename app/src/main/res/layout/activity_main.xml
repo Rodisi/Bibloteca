@@ -20,9 +20,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="64dp"
         android:id="@+id/email"
-        android:hint="Email"
-
-        android:singleLine="true" />
+        android:hint="Username" />
 
     <EditText
         android:layout_width="match_parent"
@@ -33,7 +31,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
         android:id="@+id/password"
-        android:singleLine="true"
         android:hint="Password" />
 
     <Button
