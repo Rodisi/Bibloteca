@@ -173,9 +173,9 @@ public class DbHelper extends SQLiteOpenHelper {
         return null;
     }
 
-    public List<Livro> getLivrosPorData(){
-        List<Livro> listaLivros = new ArrayList<Livro>();
-        String query ="SELECT * FROM livros ORDER BY data DESC LIMIT 10";
+    public ArrayList<Livro> getLivrosPorData(int lim){
+        ArrayList<Livro> listaLivros = new ArrayList<Livro>();
+        String query ="SELECT * FROM livros ORDER BY data DESC LIMIT "+lim;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
@@ -189,8 +189,8 @@ public class DbHelper extends SQLiteOpenHelper {
         return  listaLivros;
     }
 
-    public List<Livro> getLivrosProcuraSimples(String tipo, String procura){
-        List<Livro> listaLivros = new ArrayList<Livro>();
+    public ArrayList<Livro> getLivrosProcuraSimples(String tipo, String procura){
+        ArrayList<Livro> listaLivros = new ArrayList<Livro>();
         String query ="SELECT * FROM livros WHERE "+tipo+" LIKE'"+procura+"%' ORDER BY data";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
