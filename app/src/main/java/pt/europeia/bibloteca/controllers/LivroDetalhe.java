@@ -1,0 +1,15 @@
+package pt.europeia.bibloteca.controllers;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+import pt.europeia.bibloteca.R;
+
+public class LivroDetalhe extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_livro_detalhe);
+    }
+}

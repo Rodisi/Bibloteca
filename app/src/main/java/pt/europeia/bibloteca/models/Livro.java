@@ -1,10 +1,12 @@
 package pt.europeia.bibloteca.models;
 
+import java.io.Serializable;
+
 /**
  * Created by bruno on 21/10/2016.
  */
 
-public class Livro {
+public class Livro implements Serializable {
     private int ID;
     private String titulo;
     private String autor;

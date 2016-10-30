@@ -1,6 +1,7 @@
 package pt.europeia.bibloteca.controllers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -71,7 +72,10 @@ public class LIvrosAdapter extends RecyclerView.Adapter<LIvrosAdapter.MyViewHold
         holder.txttitulo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Livro livro = listaLivros.get(position);
+                Intent myIntent = new Intent(context, LivroDetalhe.class);
+                myIntent.putExtra("livro", livro);
+                context.startActivity(myIntent);
             }
         });
     }
@@ -93,10 +97,13 @@ public class LIvrosAdapter extends RecyclerView.Adapter<LIvrosAdapter.MyViewHold
         Bitmap bitmap = BitmapFactory.decodeStream(istr);
         return bitmap;
     }
+
     public void updateList(List<Livro> data) {
         listaLivros = data;
         notifyDataSetChanged();
     }
+
+
 
 }
 

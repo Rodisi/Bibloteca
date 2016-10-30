@@ -15,7 +15,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controllers.PaginaPrincipal"></activity>
+        <activity android:name=".controllers.PaginaPrincipal" />
+        <activity android:name=".controllers.LivroDetalhe"></activity>
     </application>
 
 </manifest>
