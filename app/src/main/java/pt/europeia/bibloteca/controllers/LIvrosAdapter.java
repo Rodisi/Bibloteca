@@ -75,6 +75,7 @@ public class LIvrosAdapter extends RecyclerView.Adapter<LIvrosAdapter.MyViewHold
                 Livro livro = listaLivros.get(position);
                 Intent myIntent = new Intent(context, LivroDetalhe.class);
                 myIntent.putExtra("livro", livro);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(myIntent);
             }
         });
