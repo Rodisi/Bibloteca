@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * Created by bruno on 21/10/2016.
+ * class for each book. Contains the revelants fields of a book
  */
 
 public class Livro implements Serializable {
@@ -15,14 +16,19 @@ public class Livro implements Serializable {
     private String capa;
     private int data;
 
-    public int getData() {
-        return data;
-    }
 
-    public void setData(int data) {
-        this.data = data;
-    }
 
+
+    /**
+     * Constructor for Livro class
+     * @param ID ID in the database, could be revelant for a update chnaging the internal database for a external one
+     * @param titulo Title of the book
+     * @param autor Author of the book
+     * @param editora Editor of the book
+     * @param isbn ISBN pf the book
+     * @param capa Cover of publication
+     * @param data Date of publication
+     */
     public Livro(int ID, String titulo, String autor, String editora, String isbn, String capa, int data) {
         this.ID = ID;
         this.titulo = titulo;
@@ -80,5 +86,13 @@ public class Livro implements Serializable {
 
     public void setCapa(String capa) {
         this.capa = capa;
+    }
+
+    public int getData() {
+        return data;
+    }
+
+    public void setData(int data) {
+        this.data = data;
     }
 }

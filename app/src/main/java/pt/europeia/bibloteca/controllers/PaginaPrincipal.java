@@ -18,6 +18,10 @@ import pt.europeia.bibloteca.R;
 import pt.europeia.bibloteca.models.DbHelper;
 import pt.europeia.bibloteca.models.Livro;
 
+/**
+ * Activity responsible for Main page of the app
+ */
+
 public class PaginaPrincipal extends AppCompatActivity {
 
     private RecyclerView livros_recycler_view;
@@ -28,7 +32,11 @@ public class PaginaPrincipal extends AppCompatActivity {
     DbHelper helper;
 
 
-
+    /**
+     * When the activity is created we create a adapter with the types of search for the Spinner
+     * We also feed the RecyclerView a list with the newer 5 books
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +67,9 @@ public class PaginaPrincipal extends AppCompatActivity {
         livros_recycler_view.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    /**
+     * TextWatcher responsible for the search. When you change the text the method afterTextChanged is called
+     */
     private class procuraWatcher implements TextWatcher {
 
         @Override
@@ -71,6 +82,10 @@ public class PaginaPrincipal extends AppCompatActivity {
 
         }
 
+        /**
+         * When the text of the search is changed  it gets a new list of {@link Livro} based on the search parameters and updates the Adapter
+         * @param editable
+         */
         @Override
         public void afterTextChanged(Editable editable) {
             String textoProcura=procura.getText().toString();

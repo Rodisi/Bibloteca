@@ -31,6 +31,12 @@ public class MainActivity extends AppCompatActivity {
         login =(Button) findViewById(R.id.login);
     }
 
+    /**
+     * OnClick event fot the button login
+     * uses the method validateUser to check the database for a valid username and password combination . if the method returns a valid User it displays a welcome message and goes to {@link PaginaPrincipal}
+     * if not it display a error message
+     * @param v
+     */
     public void login (View v){
         Context context = getApplicationContext();
 

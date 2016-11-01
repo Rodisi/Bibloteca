@@ -25,6 +25,7 @@ import static java.security.AccessController.getContext;
 
 /**
  * Created by bruno on 28/10/2016.
+ * Adapter created for the RecyclerView  in {@link PaginaPrincipal}. Created a separated class because it could be used by  an other RecyclerView that needs to display {@link Livro}
  */
 
 public class LIvrosAdapter extends RecyclerView.Adapter<LIvrosAdapter.MyViewHolder>{
@@ -46,7 +47,11 @@ public class LIvrosAdapter extends RecyclerView.Adapter<LIvrosAdapter.MyViewHold
         }
     }
 
-
+    /**
+     * Constructor . Receives a List of {@link Livro} nad the Context
+     * @param listaLivros LIst of {@link Livro} to feed to the Adapter
+     * @param context Context
+     */
     public LIvrosAdapter(List<Livro> listaLivros , Context context) {
         this.listaLivros = listaLivros;
         this.context = context;
@@ -60,6 +65,12 @@ public class LIvrosAdapter extends RecyclerView.Adapter<LIvrosAdapter.MyViewHold
         return new MyViewHolder(itemView);
     }
 
+    /**
+     * data for each item from the RecyclerView. puts each field from the Livro at the relevant View. Also sets a new OnClickListener in the titulo that receives the Livro at the position and starts the Activity {@link LivroDetalhe}
+     * putting in the intent the Livro to feed to that activity
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         holder.txttitulo.setText(listaLivros.get(position).getTitulo());
@@ -86,6 +97,12 @@ public class LIvrosAdapter extends RecyclerView.Adapter<LIvrosAdapter.MyViewHold
         return listaLivros.size();
     }
 
+
+    /**
+     * Slighty different form the same named method at {@link LivroDetalhe}because of Context used, but does the same thing, fetches a Bitmap object with the image from assets based on the String it receives
+     * @param strName filename of the image
+     * @return a Bitmap object with the image
+     */
     private Bitmap getBitmapFromAsset(String strName)
     {
         AssetManager assetManager = context.getAssets();
@@ -99,6 +116,10 @@ public class LIvrosAdapter extends RecyclerView.Adapter<LIvrosAdapter.MyViewHold
         return bitmap;
     }
 
+    /**
+     * Method responsible for updating the Adapter . Receives a new List of {@link Livro} and changes the list associated to the adapter  to the new one. Then it notifies the Adapter that the dataset was updated.
+     * @param data the new list of {@link Livro} to feed to the Adapter
+     */
     public void updateList(List<Livro> data) {
         listaLivros = data;
         notifyDataSetChanged();

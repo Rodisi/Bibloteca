@@ -21,6 +21,7 @@ import pt.europeia.bibloteca.models.User;
 
 /**
  * Created by bruno on 21/10/2016.
+ * Class responsible for everything relevant to the internal database , from running SQL queries  to creating and updating the database itself in the device
  */
 
 public class DbHelper extends SQLiteOpenHelper {
@@ -36,6 +37,11 @@ public class DbHelper extends SQLiteOpenHelper {
 
     private static final int DB_Version = 1;
 
+    /**
+     * Constructor for the DbHelper . Since it extends the SQLiteOpenHelper we call the super() for most of the construction . Based in the SDK version the location of the file containing the database can be different
+     *
+     * @param context
+     */
     public DbHelper(Context context) {
 
         super(context, DB_NAME, null, DB_Version);
@@ -49,6 +55,10 @@ public class DbHelper extends SQLiteOpenHelper {
         this.myContext = context;
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     public void createDataBase() throws IOException {
         boolean dbExist = checkDataBase();
         if (dbExist) {
@@ -160,6 +170,12 @@ public class DbHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * checks the database  for a user that matches the username password combo
+     * @param user username
+     * @param pass password
+     * @return a valid {@link User} if it finds one , or null if not
+     */
     public User validateUser(String user, String pass){
         String query = "SELECT * FROM users WHERE username='"+user+"'AND pass='"+pass+"'";
         SQLiteDatabase db = this.getWritableDatabase();
@@ -173,6 +189,11 @@ public class DbHelper extends SQLiteOpenHelper {
         return null;
     }
 
+    /**
+     * retrieves form database a list of livros limited by the lim ordered vy date
+     * @param lim max number of Livro to retrieve
+     * @return a list of Livro
+     */
     public ArrayList<Livro> getLivrosPorData(int lim){
         ArrayList<Livro> listaLivros = new ArrayList<Livro>();
         String query ="SELECT * FROM livros ORDER BY data DESC LIMIT "+lim;
@@ -189,6 +210,12 @@ public class DbHelper extends SQLiteOpenHelper {
         return  listaLivros;
     }
 
+    /**
+     * retrieves form database a list of livros  based in the parameters
+     * @param tipo type of search ( titulo, editora,etc)
+     * @param procura String with the search
+     * @return
+     */
     public ArrayList<Livro> getLivrosProcuraSimples(String tipo, String procura){
         ArrayList<Livro> listaLivros = new ArrayList<Livro>();
         String query ="SELECT * FROM livros WHERE "+tipo+" LIKE'"+procura+"%' ORDER BY data";
