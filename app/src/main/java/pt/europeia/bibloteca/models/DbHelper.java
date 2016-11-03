@@ -192,7 +192,7 @@ public class DbHelper extends SQLiteOpenHelper {
     /**
      * retrieves form database a list of livros limited by the lim ordered vy date
      * @param lim max number of Livro to retrieve
-     * @return a list of Livro
+     * @return a list of {@link Livro}
      */
     public ArrayList<Livro> getLivrosPorData(int lim){
         ArrayList<Livro> listaLivros = new ArrayList<Livro>();
@@ -214,7 +214,7 @@ public class DbHelper extends SQLiteOpenHelper {
      * retrieves form database a list of livros  based in the parameters
      * @param tipo type of search ( titulo, editora,etc)
      * @param procura String with the search
-     * @return
+     * @return a list of {@link Livro}
      */
     public ArrayList<Livro> getLivrosProcuraSimples(String tipo, String procura){
         ArrayList<Livro> listaLivros = new ArrayList<Livro>();

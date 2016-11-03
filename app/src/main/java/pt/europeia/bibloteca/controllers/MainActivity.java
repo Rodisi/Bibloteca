@@ -15,6 +15,9 @@ import pt.europeia.bibloteca.models.DbHelper;
 import pt.europeia.bibloteca.R;
 import pt.europeia.bibloteca.models.User;
 
+/**
+ * staring Acctivity . responsible for the login
+ */
 public class MainActivity extends AppCompatActivity {
 
     EditText email ;
@@ -35,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
      * OnClick event fot the button login
      * uses the method validateUser to check the database for a valid username and password combination . if the method returns a valid User it displays a welcome message and goes to {@link PaginaPrincipal}
      * if not it display a error message
-     * @param v
+     * @param v in this case the login Button
      */
     public void login (View v){
         Context context = getApplicationContext();

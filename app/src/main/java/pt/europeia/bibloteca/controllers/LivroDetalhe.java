@@ -19,7 +19,7 @@ import pt.europeia.bibloteca.models.Livro;
 
 /**
  * This activity shows to the user the details from the book selected in the Activity  {@link PaginaPrincipal PaginaPrincipal}
- * The Activity gets the extra Serializable  {@link Livro} from the intent and outputs to the revelant Views
+ * The Activity gets the extra Serializable  {@link Livro} from the intent and outputs to the relevant Views
  */
 public class LivroDetalhe extends AppCompatActivity {
 
@@ -62,7 +62,7 @@ public class LivroDetalhe extends AppCompatActivity {
     }
 
     /**
-     * This class receives a String containing the image file name , fetch it form the assets folder and returns a bitmap object with the image
+     * This class receives a String containing the image file name , fetch it form the assets folder and returns a Bitmap object with the image
      * @param strName the file name from the image
      * @return a Bitmap object containing the requested image
      */
