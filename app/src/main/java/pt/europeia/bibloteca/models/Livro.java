@@ -1,6 +1,7 @@
 package pt.europeia.bibloteca.models;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by bruno on 21/10/2016.
@@ -14,7 +15,7 @@ public class Livro implements Serializable {
     private String editora;
     private String isbn;
     private String capa;
-    private int data;
+    private Date data;
 
 
 
@@ -29,7 +30,7 @@ public class Livro implements Serializable {
      * @param capa Cover of publication
      * @param data Date of publication
      */
-    public Livro(int ID, String titulo, String autor, String editora, String isbn, String capa, int data) {
+    public Livro(int ID, String titulo, String autor, String editora, String isbn, String capa, Date data) {
         this.ID = ID;
         this.titulo = titulo;
         this.autor = autor;
@@ -88,11 +89,11 @@ public class Livro implements Serializable {
         this.capa = capa;
     }
 
-    public int getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(int data) {
+    public void setData(Date data) {
         this.data = data;
     }
 }

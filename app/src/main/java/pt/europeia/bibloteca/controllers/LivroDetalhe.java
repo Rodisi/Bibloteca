@@ -1,10 +1,12 @@
 package pt.europeia.bibloteca.controllers;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,12 +31,17 @@ public class LivroDetalhe extends AppCompatActivity {
     public TextView txtisbn;
     public TextView txtdata;
     public ImageView imgcapa;
+    private  Livro livro;
 
+    /**
+     * Runs when the activity is created
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_livro_detalhe);
-        Livro livro = (Livro) getIntent().getSerializableExtra("livro");
+        livro = (Livro) getIntent().getSerializableExtra("livro");
         txttitulo=(TextView) findViewById(R.id.txttitulo);
         txtautor=(TextView) findViewById(R.id.txtautor);
         txteditora=(TextView) findViewById(R.id.txteditora);
@@ -46,12 +53,9 @@ public class LivroDetalhe extends AppCompatActivity {
         txtautor.setText("Autor: "+ livro.getAutor());
         txteditora.setText("Editora : "+ livro.getEditora());
         txtisbn.setText("ISBN: "+ livro.getIsbn());
-        long millis = livro.getData() * 1000;
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String  date = sdf.format(millis);
-
-        txtdata.setText("Data; " + date);
+        SimpleDateFormat userDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        txtdata.setText("Data; " + userDateFormat.format(livro.getData()));
         Bitmap bp = getBitmapFromAsset(livro.getCapa());
 
         imgcapa.setImageBitmap(bp);
@@ -77,5 +81,18 @@ public class LivroDetalhe extends AppCompatActivity {
         }
         Bitmap bitmap = BitmapFactory.decodeStream(istr);
         return bitmap;
+    }
+
+    /**
+     * Share the details of the book and let the user choose how to share it (wich app)
+     * @param v a
+     */
+    public void share(View v) {
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        String shareText = livro.getTitulo() +" de " + livro.getAutor() + " da editora " +livro.getEditora();
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, livro.getTitulo());
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareText);
+        startActivity(Intent.createChooser(sharingIntent, "Partilhar via"));
     }
 }

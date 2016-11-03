@@ -24,7 +24,10 @@ public class MainActivity extends AppCompatActivity {
     EditText password ;
     Button login ;
 
-
+    /**
+     * Runs when the activity is created
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -78,4 +78,16 @@
         android:text="Datra: "
         android:textColor="#040404"
         android:typeface="sans" />
+
+    <Button
+        android:text="Partilhar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/capa"
+        android:layout_below="@+id/txtdata"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="17dp"
+        android:id="@+id/share"
+        android:onClick="share"/>
+
 </RelativeLayout>

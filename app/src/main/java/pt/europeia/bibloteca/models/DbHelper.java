@@ -13,7 +13,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import pt.europeia.bibloteca.models.Livro;
@@ -36,6 +39,8 @@ public class DbHelper extends SQLiteOpenHelper {
     private final Context myContext;
 
     private static final int DB_Version = 1;
+
+    private  static  SimpleDateFormat fromDB = new SimpleDateFormat("dd-MM-yyyy");
 
     /**
      * Constructor for the DbHelper . Since it extends the SQLiteOpenHelper we call the super() for most of the construction . Based in the SDK version the location of the file containing the database can be different
@@ -190,20 +195,26 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * retrieves form database a list of livros limited by the lim ordered vy date
+     * retrieves form database a list of livros limited by the lim ordered by ID
      * @param lim max number of Livro to retrieve
      * @return a list of {@link Livro}
      */
-    public ArrayList<Livro> getLivrosPorData(int lim){
+    public ArrayList<Livro> getLivros(int lim){
         ArrayList<Livro> listaLivros = new ArrayList<Livro>();
-        String query ="SELECT * FROM livros ORDER BY data DESC LIMIT "+lim;
+        String query ="SELECT * FROM livros  LIMIT "+lim;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                Livro liv = new Livro(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5),cursor.getInt(6));
+                Date data= null;
+                try {
+                    data = fromDB.parse(cursor.getString(6));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                Livro liv = new Livro(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5),data);
                 listaLivros.add(liv);
             } while (cursor.moveToNext());
         }
@@ -221,9 +232,16 @@ public class DbHelper extends SQLiteOpenHelper {
         String query ="SELECT * FROM livros WHERE "+tipo+" LIKE'"+procura+"%' ORDER BY data";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
+
         if (cursor.moveToFirst()) {
             do {
-                Livro liv = new Livro(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5),cursor.getInt(6));
+                Date data= null;
+                try {
+                    data = fromDB.parse(cursor.getString(6));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                Livro liv = new Livro(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5),data);
                 listaLivros.add(liv);
             } while (cursor.moveToNext());
         }

@@ -5,14 +5,13 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,7 +20,6 @@ import java.util.List;
 import pt.europeia.bibloteca.R;
 import pt.europeia.bibloteca.models.Livro;
 
-import static java.security.AccessController.getContext;
 
 /**
  * Created by bruno on 28/10/2016.
@@ -38,7 +36,10 @@ public class LIvrosAdapter extends RecyclerView.Adapter<LIvrosAdapter.MyViewHold
         public ImageView imgcapa;
 
 
-
+        /**
+         * A ViewHolder describes an item view and metadata about its place within the RecyclerView.
+         * @param view
+         */
         public MyViewHolder(View view) {
             super(view);
             txttitulo = (TextView) view.findViewById(R.id.txttitulo);
@@ -57,6 +58,12 @@ public class LIvrosAdapter extends RecyclerView.Adapter<LIvrosAdapter.MyViewHold
         this.context = context;
     }
 
+    /**
+     * When the Viewholder is created it uses the ist_row
+     * @param parent the RecyclerView
+     * @param viewType
+     * @return
+     */
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -66,8 +73,7 @@ public class LIvrosAdapter extends RecyclerView.Adapter<LIvrosAdapter.MyViewHold
     }
 
     /**
-     * data for each item from the RecyclerView. puts each field from the Livro at the relevant View. Also sets a new OnClickListener in the titulo that receives the Livro at the position and starts the Activity {@link LivroDetalhe}
-     * putting in the intent the Livro to feed to that activity
+     * Udate contents with the item at the given position
      * @param holder
      * @param position
      */
@@ -76,7 +82,7 @@ public class LIvrosAdapter extends RecyclerView.Adapter<LIvrosAdapter.MyViewHold
         holder.txttitulo.setText(listaLivros.get(position).getTitulo());
         holder.txtautor.setText(listaLivros.get(position).getAutor());
 
-        Bitmap bitmap = getBitmapFromAsset(listaLivros.get(position).getCapa());
+        final Bitmap bitmap = getBitmapFromAsset(listaLivros.get(position).getCapa());
 
         holder.imgcapa.setImageBitmap(bitmap);
 
@@ -90,8 +96,13 @@ public class LIvrosAdapter extends RecyclerView.Adapter<LIvrosAdapter.MyViewHold
                 context.startActivity(myIntent);
             }
         });
+
     }
 
+    /**
+     * returnss the size of the list of {@link Livro} associated to the adapter
+     * @return size of the list of {@link Livro} associated to the adapter
+     */
     @Override
     public int getItemCount() {
         return listaLivros.size();

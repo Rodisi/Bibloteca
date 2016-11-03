@@ -60,7 +60,7 @@ public class PaginaPrincipal extends AppCompatActivity {
 
         livros_recycler_view= (RecyclerView) findViewById(R.id.listalivrosnovos);
         helper = new DbHelper(getApplicationContext());
-        listaLivros=helper.getLivrosPorData(5);
+        listaLivros=helper.getLivros(5);
 
         lIvrosAdapter=new LIvrosAdapter(listaLivros,getApplicationContext());
         livros_recycler_view.setAdapter(lIvrosAdapter);
