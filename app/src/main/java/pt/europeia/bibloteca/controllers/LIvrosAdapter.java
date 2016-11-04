@@ -30,6 +30,9 @@ public class LIvrosAdapter extends RecyclerView.Adapter<LIvrosAdapter.MyViewHold
     private List<Livro> listaLivros;
     private Context context;
 
+    /**
+     * A ViewHolder describes an item view and metadata about its place within the RecyclerView.
+     */
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView txttitulo;
         public TextView txtautor;
@@ -37,7 +40,7 @@ public class LIvrosAdapter extends RecyclerView.Adapter<LIvrosAdapter.MyViewHold
 
 
         /**
-         * A ViewHolder describes an item view and metadata about its place within the RecyclerView.
+         * ViewHolder constructor
          * @param view
          */
         public MyViewHolder(View view) {
@@ -49,7 +52,7 @@ public class LIvrosAdapter extends RecyclerView.Adapter<LIvrosAdapter.MyViewHold
     }
 
     /**
-     * Constructor . Receives a List of {@link Livro} nad the Context
+     * Constructor . Receives a List of {@link Livro} and the Context
      * @param listaLivros LIst of {@link Livro} to feed to the Adapter
      * @param context Context
      */
