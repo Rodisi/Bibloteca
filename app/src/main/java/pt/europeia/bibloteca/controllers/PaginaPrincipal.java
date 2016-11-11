@@ -6,8 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -25,7 +23,7 @@ import pt.europeia.bibloteca.models.Livro;
 public class PaginaPrincipal extends AppCompatActivity {
 
     private RecyclerView livros_recycler_view;
-    public LIvrosAdapter lIvrosAdapter;
+    public LivrosAdapter livrosAdapter;
     private EditText procura;
     private Spinner tipo;
     ArrayList<Livro>listaLivros= new ArrayList<Livro>();
@@ -62,8 +60,8 @@ public class PaginaPrincipal extends AppCompatActivity {
         helper = new DbHelper(getApplicationContext());
         listaLivros=helper.getLivros(5);
 
-        lIvrosAdapter=new LIvrosAdapter(listaLivros,getApplicationContext());
-        livros_recycler_view.setAdapter(lIvrosAdapter);
+        livrosAdapter =new LivrosAdapter(listaLivros,getApplicationContext());
+        livros_recycler_view.setAdapter(livrosAdapter);
         livros_recycler_view.setLayoutManager(new LinearLayoutManager(this));
     }
 
@@ -92,7 +90,7 @@ public class PaginaPrincipal extends AppCompatActivity {
             String tipoProcura=String.valueOf(tipo.getSelectedItem());
 
             listaLivros=helper.getLivrosProcuraSimples(tipoProcura ,textoProcura );
-            lIvrosAdapter.updateList(listaLivros);
+            livrosAdapter.updateList(listaLivros);
 
 
         }

@@ -26,7 +26,7 @@ import pt.europeia.bibloteca.models.Livro;
  * Adapter created for the RecyclerView  in {@link PaginaPrincipal}. Created a separated class because it could be used by  an other RecyclerView that needs to display {@link Livro}
  */
 
-public class LIvrosAdapter extends RecyclerView.Adapter<LIvrosAdapter.MyViewHolder>{
+public class LivrosAdapter extends RecyclerView.Adapter<LivrosAdapter.MyViewHolder>{
     private List<Livro> listaLivros;
     private Context context;
 
@@ -56,7 +56,7 @@ public class LIvrosAdapter extends RecyclerView.Adapter<LIvrosAdapter.MyViewHold
      * @param listaLivros LIst of {@link Livro} to feed to the Adapter
      * @param context Context
      */
-    public LIvrosAdapter(List<Livro> listaLivros , Context context) {
+    public LivrosAdapter(List<Livro> listaLivros , Context context) {
         this.listaLivros = listaLivros;
         this.context = context;
     }
