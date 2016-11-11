@@ -19,6 +19,7 @@ import java.util.List;
 
 import pt.europeia.bibloteca.R;
 import pt.europeia.bibloteca.models.Livro;
+import pt.europeia.bibloteca.models.User;
 
 
 /**
@@ -29,6 +30,7 @@ import pt.europeia.bibloteca.models.Livro;
 public class LivrosAdapter extends RecyclerView.Adapter<LivrosAdapter.MyViewHolder>{
     private List<Livro> listaLivros;
     private Context context;
+    private User useratual;
 
     /**
      * A ViewHolder describes an item view and metadata about its place within the RecyclerView.
@@ -56,9 +58,10 @@ public class LivrosAdapter extends RecyclerView.Adapter<LivrosAdapter.MyViewHold
      * @param listaLivros LIst of {@link Livro} to feed to the Adapter
      * @param context Context
      */
-    public LivrosAdapter(List<Livro> listaLivros , Context context) {
+    public LivrosAdapter(List<Livro> listaLivros , Context context,User user) {
         this.listaLivros = listaLivros;
         this.context = context;
+        this.useratual = user;
     }
 
     /**
@@ -95,6 +98,7 @@ public class LivrosAdapter extends RecyclerView.Adapter<LivrosAdapter.MyViewHold
                 Livro livro = listaLivros.get(position);
                 Intent myIntent = new Intent(context, LivroDetalhe.class);
                 myIntent.putExtra("livro", livro);
+                myIntent.putExtra("userlogado", useratual);
                 myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(myIntent);
             }

@@ -1,6 +1,7 @@
 package pt.europeia.bibloteca.models;
 
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -195,8 +196,8 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * retrieves form database a list of livros limited by the lim ordered by ID
-     * @param lim max number of Livro to retrieve
+     * retrieves form database a list of {@link Livro}  limited by the lim ordered by ID
+     * @param lim max number of {@link Livro} to retrieve
      * @return a list of {@link Livro}
      */
     public ArrayList<Livro> getLivros(int lim){
@@ -230,6 +231,10 @@ public class DbHelper extends SQLiteOpenHelper {
     public ArrayList<Livro> getLivrosProcuraSimples(String tipo, String procura){
         ArrayList<Livro> listaLivros = new ArrayList<Livro>();
         String query ="SELECT * FROM livros WHERE "+tipo+" LIKE'"+procura+"%' ORDER BY data";
+          final String TAG = "myApp";
+        Log.v(TAG, query);
+
+
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
@@ -247,6 +252,74 @@ public class DbHelper extends SQLiteOpenHelper {
         }
 
         return listaLivros;
+    }
+
+    /**
+     * Fetches a list of {@link LivroRecomendado} for the current {@link User}
+     * @param userAtual The current user
+     * @return a list of {@link LivroRecomendado} for the current {@link User}
+     */
+    public ArrayList<Livro> getLivrosRecomendados(User userAtual){
+        ArrayList<Livro> listaLivros = new ArrayList<Livro>();
+
+        String query ="SELECT IDlivro FROM recomendacoes WHERE IDuserd = " + userAtual.getId();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        ArrayList<Integer> idsLivros=new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                idsLivros.add(cursor.getInt(0));
+
+            }while (cursor.moveToNext());
+        }
+        for (int i = 0; i<idsLivros.size();i++){
+            String queryLivros ="SELECT * FROM livros WHERE ID="+idsLivros.get(i);
+            Cursor cursorl = db.rawQuery(queryLivros, null);
+
+            if (cursorl.moveToFirst()) {
+                do {
+                    Date data= null;
+                    try {
+                        data = fromDB.parse(cursorl.getString(6));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    LivroRecomendado liv = new LivroRecomendado(cursorl.getInt(0),cursorl.getString(1),cursorl.getString(2),cursorl.getString(3),cursorl.getString(4),cursorl.getString(5),data,userAtual);
+                    listaLivros.add(liv);
+                }while (cursorl.moveToNext());
+            }
+
+        }
+        Log.v("teste", listaLivros.toString());
+        return listaLivros;
+    }
+
+    /**
+     * Saves to database the recommendation of the book
+     * @param userAtual current user
+     * @param username username of the user to wich we want to recommend the book
+     * @param liv book we want to recommend
+     * @return true if successful , false if the user does not exist
+     */
+    public boolean recomendarLivro(User userAtual, String username, Livro liv) {
+        String queryUser ="SELECT ID from users WHERE username = '"+ username + "'" ;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursorUser = db.rawQuery(queryUser, null);
+        if(cursorUser.getCount()==0){
+            return false;
+        }else{
+            cursorUser.moveToFirst();
+            int idUserd= cursorUser.getInt(0);
+            ContentValues values = new ContentValues();
+            values.put("IDusero",userAtual.getId());
+            values.put("IDuserd",idUserd);
+            values.put("IDlivro",liv.getID());
+            db.insert("recomendacoes", null, values);
+            return  true;
+        }
+
     }
 
 

@@ -20,9 +20,9 @@ import pt.europeia.bibloteca.models.User;
  */
 public class MainActivity extends AppCompatActivity {
 
-    EditText email ;
-    EditText password ;
-    Button login ;
+    private EditText email ;
+    private EditText password ;
+    private Button login ;
 
     /**
      * Runs when the activity is created
